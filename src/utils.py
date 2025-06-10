@@ -8,6 +8,7 @@ import dill
 from src.exception import CustomException
 from src.logger import logging
 
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import r2_score
 
 def save_object(file_path, obj):
@@ -30,7 +31,7 @@ def save_object(file_path, obj):
         raise CustomException(e, sys) from e
     
 
-def evaluate_models(X_train, y_train, X_test, y_test, models):
+def evaluate_models(X_train, y_train, X_test, y_test, models, params):
     """
     Evaluate multiple regression models and return their performance metrics.
 
@@ -49,6 +50,12 @@ def evaluate_models(X_train, y_train, X_test, y_test, models):
         
         for i in range(len(list(models))):
             model = list(models.values())[i]
+            param_model = params[list(models.keys())[i]]
+
+            grid_search = GridSearchCV(model, param_model, cv=3, verbose=0)
+            grid_search.fit(X_train, y_train)
+
+            model.set_params(**grid_search.best_params_)
             model.fit(X_train, y_train)
 
             y_train_pred = model.predict(X_train)
