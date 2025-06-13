@@ -1,0 +1,32 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Ignore git files
+.git/
+.gitignore
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore test and log files
+*.log
+
+# Ignore data files (optional, if not needed in container)
+*.csv
+*.xlsx
+
+# Ignore artifacts (optional, if not needed in container)
+artifacts/
